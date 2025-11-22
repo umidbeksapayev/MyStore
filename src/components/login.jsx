@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { loginUserStart } from "../slice/auth"
 
 const Login = () => {
-    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
     const {isLoading} = useSelector(state => state.auth)
@@ -18,7 +18,7 @@ const Login = () => {
       <div className="form-signin w-25 m-auto p-4 shadow rounded" style={{ backgroundColor: "#e3f2fd" }}>
         <h3 className="mb-4 fw-bold">Login</h3>
 
-          <Input state={name} setState={setName} lable={'Username...'}/>
+          <Input state={email} setState={setEmail} lable={'Email...'}/>
 
           <Input state={password} setState={setPassword} lable={'Password...'}/>
 
