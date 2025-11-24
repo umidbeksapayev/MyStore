@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { Input } from "../ui"
 import { useDispatch, useSelector } from "react-redux"
-import { loginUserStart } from "../slice/auth"
+import {signUserStart, signUserSuccess, singUserFailure } from "../slice/auth"
+import AuthService from "../service/auth"
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -10,8 +11,19 @@ const Login = () => {
     const {isLoading} = useSelector(state => state.auth)
     
 
-    const loginHandler =()=>{
-      dispatch(loginUserStart())
+    const loginHandler  = async() =>{
+      dispatch(signUserStart())
+      const user = {email, password}
+      try {
+        const response = await AuthService.userLogin(user) 
+        dispatch(signUserSuccess(response.user))
+        console.log(response);
+        
+      } catch (error) {
+        dispatch(singUserFailure(error.response.data.errors))
+        console.log(error.response.data.errors);
+        
+      }
     }
   return (
    <div className="text-center mt-5">
